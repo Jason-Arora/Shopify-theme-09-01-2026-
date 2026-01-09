@@ -1,0 +1,230 @@
+<div class="product-form__buy-buttons" {{ block.shopify_attributes }}>
+  {%- if product.gift_card? and block.settings.show_gift_card_recipient -%}
+    <gift-card-recipient class="gift-card-recipient">
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <div class="checkbox-wrapper">
+          <input type="checkbox" class="checkbox" name="properties[__shopify_send_gift_card_to_recipient]" id="product-{{ section.id }}-{{ product.id }}-send-gift-card-to-recipient">
+          {% render 'icon', icon: 'check' %}
+        </div>
+
+        <label for="product-{{ section.id }}-{{ product.id }}-send-gift-card-to-recipient">{{ 'gift_card.recipient.checkbox' | t }}</label>
+      </div>
+
+      <div class="gift-card-recipient__fields js:hidden">
+        <div class="form__input-wrapper form__input-wrapper--labelled">
+          <input id="product-{{ section.id }}-{{ product.id }}-recipient-email" type="email" class="form__field form__field--text" name="properties[Recipient email]" required value="{{ form.email }}">
+          <label for="product-{{ section.id }}-{{ product.id }}-recipient-email" class="form__floating-label">{{ 'gift_card.recipient.email_label' | t }}</label>
+        </div>
+
+        <div class="form__input-wrapper form__input-wrapper--labelled">
+          <input id="product-{{ section.id }}-{{ product.id }}-recipient-name" type="text" class="form__field form__field--text" name="properties[Recipient name]" value="{{ form.name }}">
+          <label for="product-{{ section.id }}-{{ product.id }}-recipient-name" class="form__floating-label">{{ 'gift_card.recipient.name_label' | t }}</label>
+        </div>
+
+        <div class="form__input-wrapper form__input-wrapper--labelled">
+          <textarea id="product-{{ section.id }}-{{ product.id }}-recipient-message" rows="4" class="form__field form__field--textarea" name="properties[Recipient message]">{{ form.message }}</textarea>
+          <label for="product-{{ section.id }}-{{ product.id }}-recipient-message" class="form__floating-label">{{ 'gift_card.recipient.message_label' | t }}</label>
+        </div>
+      </div>
+    </gift-card-recipient>
+  {%- endif -%}
+
+{% if product.id == 7581762060339 %}
+<div class="terms-checkbox-container">
+  <div class="terms-checkbox">
+    <input type="checkbox" id="terms-checkbox-{{ product.id }}-{{ section.id }}">
+    <label for="terms-checkbox-{{ product.id }}-{{ section.id }}">
+      I agree to the <a href="/policies/terms-of-service" target="_blank">terms & conditions</a>
+    </label>
+  </div>
+  <div class="terms-error-message" id="terms-error-{{ product.id }}-{{ section.id }}"></div>
+  <!-- <input type="hidden" name="properties[Membership Purchased At]" id="agreement-timestamp-{{ product.id }}-{{ section.id }}"> -->
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const checkboxId = 'terms-checkbox-{{ product.id }}-{{ section.id }}';
+  const errorId = 'terms-error-{{ product.id }}-{{ section.id }}';
+  const timestampId = 'agreement-timestamp-{{ product.id }}-{{ section.id }}';
+  const checkbox = document.getElementById(checkboxId);
+  const errorElement = document.getElementById(errorId);
+  // const timestampField = document.getElementById(timestampId);
+  const termsContainer = checkbox ? checkbox.closest('.terms-checkbox') : null;
+  
+  if (checkbox) {
+    const productForm = checkbox.closest('form') || 
+                       checkbox.closest('.product-form') || 
+                       checkbox.closest('.product-block') ||
+                       checkbox.closest('.product-item') ||
+                       checkbox.closest('.grid__item');
+
+    let addToCartButton = null;
+    if (productForm) {
+      addToCartButton = productForm.querySelector('button[type="submit"]') || 
+                        productForm.querySelector('[data-action="add-to-cart"]') ||
+                        productForm.querySelector('.product-form__add-button') ||
+                        productForm.querySelector('.add-to-cart') ||
+                        productForm.querySelector('.btn-add-to-cart');
+    }
+    
+    errorElement.style.cssText = `
+      color: #ff0000;
+      font-size: 13px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      height: 18px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    `;
+
+    // functionality for checking membership
+    const buyNowButton = document.querySelector('.shopify-payment-button__button');
+    const targetProductHandle = "lindas-elite-craft-club";
+    const currentProductHandle = "{{ product.handle }}";
+    const isLoggedIn = {% if customer %}true{% else %}false{% endif %};
+    const customerMetafields = {% if customer and customer.metafields.custom %}{{ customer.metafields.custom | json }}{% else %}{}{% endif %};
+    const termsAgreement = customerMetafields.lcc_member;
+
+    function disableButtons() {
+      if (addToCartButton) {
+        addToCartButton.disabled = true;
+        addToCartButton.style.opacity = "0.5";
+        addToCartButton.style.pointerEvents = "none";
+      }
+      if (buyNowButton) {
+        buyNowButton.disabled = true;
+        buyNowButton.style.opacity = "0.5";
+        buyNowButton.style.pointerEvents = "none";
+      }
+    }
+
+    // Check if user has active membership
+    if (isLoggedIn && termsAgreement && currentProductHandle === targetProductHandle) {
+      disableButtons();
+      
+      if (checkbox) {
+        checkbox.style.display = "none";
+      }
+      if (termsContainer) {
+        const label = termsContainer.querySelector("label");
+        if (label) label.style.display = "none";
+        
+        // Create or update membership message
+        let message = document.getElementById("terms-message");
+        if (!message) {
+          message = document.createElement("p");
+          message.id = "terms-message";
+          message.style.color = "#e91a90";
+          message.style.fontSize = "14px";
+          message.style.marginTop = "5px";
+          message.textContent = "😊 You already have an active membership.";
+          termsContainer.appendChild(message);
+        } else {
+          message.style.display = "block";
+          message.textContent = "😊 You already have an active membership.";
+          message.style.color = "#e91a90";
+        }
+      }
+    } else {
+      // Original terms checkbox functionality
+      if (addToCartButton) {
+        addToCartButton.disabled = !checkbox.checked;
+        
+        checkbox.addEventListener('change', function() {
+          addToCartButton.disabled = !this.checked;
+          errorElement.style.opacity = '0';
+          errorElement.textContent = '';
+        });
+
+        addToCartButton.addEventListener('mouseenter', function() {
+          if (!checkbox.checked) {
+            errorElement.textContent = '⚠️ Please accept the terms and conditions';
+            errorElement.style.opacity = '1';
+          }
+        });
+
+        addToCartButton.addEventListener('mouseleave', function() {
+          errorElement.style.opacity = '0';
+        });
+
+        addToCartButton.addEventListener('click', function(e) {
+          if (!checkbox.checked) {
+            e.preventDefault();
+            errorElement.textContent = '⚠️ Please accept the terms and conditions';
+            errorElement.style.opacity = '1';
+            
+            const rect = checkbox.getBoundingClientRect();
+            if (rect.top < 0 || rect.bottom > window.innerHeight) {
+              checkbox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            setTimeout(function() {
+              errorElement.style.opacity = '0';
+            }, 3000);
+          } 
+          // else if (timestampField) {
+          //   timestampField.value = new Date().toISOString();
+          // }
+        });
+      }
+    }
+  }
+});
+</script>
+
+<style>
+  .terms-checkbox-container {
+    margin: 15px 0;
+  }
+  .terms-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .terms-checkbox label {
+    font-size: 14px;
+    cursor: pointer;
+    margin: 0;
+  }
+  .terms-checkbox a {
+    display: inline-block;
+    border-bottom: 1px solid #ccc;
+    text-decoration: none; 
+    padding-bottom: 1px;
+    color: #485cc7;
+  }
+  button[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+</style>
+{% endif %}
+
+  <div class="product-form__payment-container">
+    {%- if product.template_suffix != 'contact' -%}
+      {%- if product.selected_or_first_available_variant.available -%}
+        {%- if product.template_suffix == 'pre-order' -%}
+          <button type="submit" class="product-form__add-button button button--primary" data-action="add-to-cart">{{ 'product.form.pre_order' | t }}</button>
+        {%- else -%}
+          <button type="submit" class="product-form__add-button button button--primary" data-action="add-to-cart">{{ 'product.form.add_to_cart' | t }}</button>
+        {%- endif -%}
+      {%- else -%}
+        <button type="submit" class="product-form__add-button button button--disabled" disabled>{{ 'product.form.sold_out' | t }}</button>
+      {%- endif -%}
+
+      {%- if block.settings.show_payment_button and product.template_suffix != 'pre-order' -%}
+        {{ form | payment_button }}
+      {%- endif -%}
+    {%- else -%}
+      <a href="mailto:{{ shop.email }}" class="button button--primary">{{ 'product.form.contact_us' | t }}</a>
+    {%- endif -%}
+
+    {%- if block.settings.show_payment_button and product.selected_or_first_available_variant.available == false -%}
+      <style>
+        #shopify-section-{{ section.id }} .shopify-payment-button {
+          display: none;
+        }
+      </style>
+    {%- endif -%}
+  </div>
+</div>

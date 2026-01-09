@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-customers-login",
+      "settings": {}
+    },
+    "17132070420969908e": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    }
+  },
+  "order": [
+    "main",
+    "17132070420969908e"
+  ]
+}

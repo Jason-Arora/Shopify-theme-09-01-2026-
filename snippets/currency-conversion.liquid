@@ -1,0 +1,173 @@
+{%- case customer_country -%}
+  {%- comment -%} North America {%- endcomment -%}
+  {%- when 'US' -%}{%- assign shipping_threshold = '$49' -%}
+  {%- when 'CA' -%}{%- assign shipping_threshold = '$65 CAD' -%}
+  {%- when 'MX' -%}{%- assign shipping_threshold = '$820 MXN' -%}
+
+  {%- comment -%} Europe {%- endcomment -%}
+  {%- when 'GB' -%}{%- assign shipping_threshold = '£39' -%}
+  {%- when 'EU', 'BE', 'BG', 'CZ', 'DK', 'DE', 'EE', 'IE', 'GR', 'ES', 'FR', 'HR', 'IT', 'CY', 'LV', 'LT', 'LU', 'HU', 'MT', 'NL', 'AT', 'PL', 'PT', 'RO', 'SI', 'SK', 'FI', 'SE' -%}
+    {%- assign shipping_threshold = '€46' -%}
+  {%- when 'CH' -%}{%- assign shipping_threshold = '52 CHF' -%}
+  {%- when 'NO' -%}{%- assign shipping_threshold = '525 NOK' -%}
+  {%- when 'IS' -%}{%- assign shipping_threshold = '6,550 ISK' -%}
+  {%- when 'AL' -%}{%- assign shipping_threshold = '5,570 ALL' -%}
+  {%- when 'AD' -%}{%- assign shipping_threshold = '€46' -%}
+  {%- when 'BA' -%}{%- assign shipping_threshold = '92 BAM' -%}
+  {%- when 'FO' -%}{%- assign shipping_threshold = '345 DKK' -%}
+  {%- when 'GI' -%}{%- assign shipping_threshold = '£39' -%}
+  {%- when 'GG' -%}{%- assign shipping_threshold = '£39' -%}
+  {%- when 'JE' -%}{%- assign shipping_threshold = '$49 USD' -%}
+  {%- when 'LI' -%}{%- assign shipping_threshold = '52 CHF' -%}
+  {%- when 'MC' -%}{%- assign shipping_threshold = '€46' -%}
+  {%- when 'ME' -%}{%- assign shipping_threshold = '€46' -%}
+  {%- when 'SM' -%}{%- assign shipping_threshold = '€46' -%}
+  {%- when 'RS' -%}{%- assign shipping_threshold = '5,770 RSD' -%}
+  {%- when 'VA' -%}{%- assign shipping_threshold = '€46' -%}
+
+  {%- comment -%} Asia Pacific {%- endcomment -%}
+  {%- when 'AU' -%}{%- assign shipping_threshold = '$72 AUD' -%}
+  {%- when 'NZ' -%}{%- assign shipping_threshold = '$79 NZD' -%}
+  {%- when 'IN' -%}{%- assign shipping_threshold = '₹3,930' -%}
+  {%- when 'JP' -%}{%- assign shipping_threshold = '¥7,210' -%}
+  {%- when 'SG' -%}{%- assign shipping_threshold = '$66 SGD' -%}
+  {%- when 'HK' -%}{%- assign shipping_threshold = '$390 HKD' -%}
+  {%- when 'CN' -%}{%- assign shipping_threshold = '¥360' -%}
+  {%- when 'TW' -%}{%- assign shipping_threshold = 'NT$1,570' -%}
+  {%- when 'KR' -%}{%- assign shipping_threshold = '₩65,500' -%}
+  {%- when 'MY' -%}{%- assign shipping_threshold = 'RM230' -%}
+  {%- when 'TH' -%}{%- assign shipping_threshold = '฿1,770' -%}
+  {%- when 'PH' -%}{%- assign shipping_threshold = '₱2,750' -%}
+  {%- when 'ID' -%}{%- assign shipping_threshold = 'Rp786,000' -%}
+  {%- when 'BN' -%}{%- assign shipping_threshold = '$66 BND' -%}
+  {%- when 'KH' -%}{%- assign shipping_threshold = '196,500 KHR' -%}
+  {%- when 'LA' -%}{%- assign shipping_threshold = '983,000 LAK' -%}
+  {%- when 'MN' -%}{%- assign shipping_threshold = '170,000 MNT' -%}
+  {%- when 'NP' -%}{%- assign shipping_threshold = 'Rs 6,550' -%}
+  {%- when 'PK' -%}{%- assign shipping_threshold = 'Rs 13,750' -%}
+  {%- when 'LK' -%}{%- assign shipping_threshold = 'Rs 17,700' -%}
+  {%- when 'MV' -%}{%- assign shipping_threshold = '755 MVR' -%}
+  {%- when 'BD' -%}{%- assign shipping_threshold = '৳5,370' -%}
+  {%- when 'BT' -%}{%- assign shipping_threshold = 'Nu 4,060' -%}
+  {%- when 'TL' -%}{%- assign shipping_threshold = '$49 USD' -%}
+  {%- when 'FJ' -%}{%- assign shipping_threshold = '$110 FJD' -%}
+  {%- when 'NC' -%}{%- assign shipping_threshold = '5,240 XPF' -%}
+  {%- when 'PG' -%}{%- assign shipping_threshold = '175 PGK' -%}
+  {%- when 'SB' -%}{%- assign shipping_threshold = '$420 SBD' -%}
+  {%- when 'VU' -%}{%- assign shipping_threshold = '5,900 VUV' -%}
+  {%- when 'WS' -%}{%- assign shipping_threshold = '130 WST' -%}
+  {%- when 'TO' -%}{%- assign shipping_threshold = '120 TOP' -%}
+  {%- when 'CK' -%}{%- assign shipping_threshold = '$79 NZD' -%}
+  {%- when 'NU' -%}{%- assign shipping_threshold = '$79 NZD' -%}
+  {%- when 'PF' -%}{%- assign shipping_threshold = '5,240 XPF' -%}
+
+  {%- comment -%} Middle East & Africa {%- endcomment -%}
+  {%- when 'AE' -%}{%- assign shipping_threshold = '180 AED' -%}
+  {%- when 'SA' -%}{%- assign shipping_threshold = '180 SAR' -%}
+  {%- when 'IL' -%}{%- assign shipping_threshold = '₪180' -%}
+  {%- when 'ZA' -%}{%- assign shipping_threshold = 'R920' -%}
+  {%- when 'DZ' -%}{%- assign shipping_threshold = '6,620 DZD' -%}
+  {%- when 'EG' -%}{%- assign shipping_threshold = 'EGP 1,510' -%}
+  {%- when 'JO' -%}{%- assign shipping_threshold = 'JOD 35' -%}
+  {%- when 'KW' -%}{%- assign shipping_threshold = 'KWD 15' -%}
+  {%- when 'LB' -%}{%- assign shipping_threshold = 'LBP 737,000' -%}
+  {%- when 'OM' -%}{%- assign shipping_threshold = 'OMR 19' -%}
+  {%- when 'QA' -%}{%- assign shipping_threshold = 'QAR 180' -%}
+  {%- when 'TR' -%}{%- assign shipping_threshold = 'TRY 1,570' -%}
+  {%- when 'BH' -%}{%- assign shipping_threshold = 'BHD 18' -%}
+  {%- when 'IR' -%}{%- assign shipping_threshold = 'IRR 2,060,000' -%}
+  {%- when 'IQ' -%}{%- assign shipping_threshold = 'IQD 64,200' -%}
+  {%- when 'PS' -%}{%- assign shipping_threshold = 'ILS 180' -%}
+  {%- when 'SY' -%}{%- assign shipping_threshold = 'SYP 1,240,000' -%}
+  {%- when 'YE' -%}{%- assign shipping_threshold = 'YER 12,300' -%}
+  {%- when 'MA' -%}{%- assign shipping_threshold = 'MAD 490' -%}
+  {%- when 'TN' -%}{%- assign shipping_threshold = 'TND 150' -%}
+  {%- when 'LY' -%}{%- assign shipping_threshold = 'LYD 235' -%}
+  {%- when 'SD' -%}{%- assign shipping_threshold = 'SDG 22,100' -%}
+  {%- when 'SS' -%}{%- assign shipping_threshold = 'SSP 85,200' -%}
+  {%- when 'DJ' -%}{%- assign shipping_threshold = 'DJF 8,750' -%}
+  {%- when 'ER' -%}{%- assign shipping_threshold = 'ERN 740' -%}
+  {%- when 'ET' -%}{%- assign shipping_threshold = 'ETB 2,790' -%}
+  {%- when 'KE' -%}{%- assign shipping_threshold = 'KES 6,390' -%}
+  {%- when 'MG' -%}{%- assign shipping_threshold = 'MGA 216,000' -%}
+  {%- when 'MW' -%}{%- assign shipping_threshold = 'MWK 85,200' -%}
+  {%- when 'MU' -%}{%- assign shipping_threshold = 'MUR 2,230' -%}
+  {%- when 'MZ' -%}{%- assign shipping_threshold = 'MZN 3,150' -%}
+  {%- when 'NA' -%}{%- assign shipping_threshold = 'NAD 920' -%}
+  {%- when 'NG' -%}{%- assign shipping_threshold = 'NGN 73,700' -%}
+  {%- when 'RW' -%}{%- assign shipping_threshold = 'RWF 59,000' -%}
+  {%- when 'SC' -%}{%- assign shipping_threshold = 'SCR 655' -%}
+  {%- when 'SO' -%}{%- assign shipping_threshold = 'SOS 27,850' -%}
+  {%- when 'TZ' -%}{%- assign shipping_threshold = 'TZS 123,000' -%}
+  {%- when 'UG' -%}{%- assign shipping_threshold = 'UGX 183,000' -%}
+  {%- when 'ZM' -%}{%- assign shipping_threshold = 'ZMW 1,250' -%}
+  {%- when 'ZW' -%}{%- assign shipping_threshold = 'ZWL 50,500' -%}
+  {%- when 'BW' -%}{%- assign shipping_threshold = 'BWP 670' -%}
+  {%- when 'LS' -%}{%- assign shipping_threshold = 'LSL 920' -%}
+  {%- when 'SZ' -%}{%- assign shipping_threshold = 'SZL 920' -%}
+  {%- when 'GA' -%}{%- assign shipping_threshold = 'XAF 29,500' -%}
+  {%- when 'CM' -%}{%- assign shipping_threshold = 'XAF 29,500' -%}
+  {%- when 'TD' -%}{%- assign shipping_threshold = 'XAF 29,500' -%}
+  {%- when 'GQ' -%}{%- assign shipping_threshold = 'XAF 29,500' -%}
+  {%- when 'CF' -%}{%- assign shipping_threshold = 'XAF 29,500' -%}
+  {%- when 'CG' -%}{%- assign shipping_threshold = 'XAF 29,500' -%}
+  {%- when 'BJ' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'BF' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'CI' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'GW' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'ML' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'NE' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'SN' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'TG' -%}{%- assign shipping_threshold = 'XOF 29,500' -%}
+  {%- when 'MR' -%}{%- assign shipping_threshold = 'MRU 1,740' -%}
+  {%- when 'ST' -%}{%- assign shipping_threshold = 'STN 1,130' -%}
+  {%- when 'SH' -%}{%- assign shipping_threshold = 'SHP 39' -%}
+  {%- when 'SL' -%}{%- assign shipping_threshold = 'SLL 1,030,000' -%}
+  {%- when 'GM' -%}{%- assign shipping_threshold = 'GMD 3,110' -%}
+  {%- when 'GN' -%}{%- assign shipping_threshold = 'GNF 423,000' -%}
+  {%- when 'LR' -%}{%- assign shipping_threshold = 'LRD 9,500' -%}
+
+  {%- comment -%} South America {%- endcomment -%}
+  {%- when 'BR' -%}{%- assign shipping_threshold = 'R$260' -%}
+  {%- when 'AR' -%}{%- assign shipping_threshold = 'ARS 9,830' -%}
+  {%- when 'CL' -%}{%- assign shipping_threshold = 'CLP 45,900' -%}
+  {%- when 'CO' -%}{%- assign shipping_threshold = 'COP 196,500' -%}
+  {%- when 'EC' -%}{%- assign shipping_threshold = '$49 USD' -%}
+  {%- when 'FK' -%}{%- assign shipping_threshold = 'FKP 39' -%}
+  {%- when 'GF' -%}{%- assign shipping_threshold = '€46' -%}
+  {%- when 'GY' -%}{%- assign shipping_threshold = 'GYD 10,300' -%}
+  {%- when 'PY' -%}{%- assign shipping_threshold = 'PYG 360,000' -%}
+  {%- when 'PE' -%}{%- assign shipping_threshold = 'PEN 185' -%}
+  {%- when 'SR' -%}{%- assign shipping_threshold = 'SRD 690' -%}
+  {%- when 'UY' -%}{%- assign shipping_threshold = 'UYU 1,900' -%}
+  {%- when 'VE' -%}{%- assign shipping_threshold = 'VES 1,670' -%}
+
+  {%- comment -%} Caribbean {%- endcomment -%}
+  {%- when 'AI' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'AG' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'AW' -%}{%- assign shipping_threshold = 'AWG 89' -%}
+  {%- when 'BS' -%}{%- assign shipping_threshold = 'BSD 49' -%}
+  {%- when 'BB' -%}{%- assign shipping_threshold = 'BBD 98' -%}
+  {%- when 'BZ' -%}{%- assign shipping_threshold = 'BZD 98' -%}
+  {%- when 'KY' -%}{%- assign shipping_threshold = 'KYD 41' -%}
+  {%- when 'CU' -%}{%- assign shipping_threshold = 'CUP 1,230' -%}
+  {%- when 'DM' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'DO' -%}{%- assign shipping_threshold = 'DOP 2,850' -%}
+  {%- when 'GD' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'GP' -%}{%- assign shipping_threshold = '€46' -%}
+  {%- when 'HT' -%}{%- assign shipping_threshold = 'HTG 6,490' -%}
+  {%- when 'JM' -%}{%- assign shipping_threshold = 'JMD 7,670' -%}
+  {%- when 'MQ' -%}{%- assign shipping_threshold = '€46' -%}
+  {%- when 'MS' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'PR' -%}{%- assign shipping_threshold = '$49 USD' -%}
+  {%- when 'KN' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'LC' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'VC' -%}{%- assign shipping_threshold = 'XCD 130' -%}
+  {%- when 'TT' -%}{%- assign shipping_threshold = 'TTD 335' -%}
+  {%- when 'TC' -%}{%- assign shipping_threshold = 'USD $49' -%}
+  {%- when 'VI' -%}{%- assign shipping_threshold = 'USD $49' -%}
+
+  {%- comment -%} Default (USD for unsupported countries) {%- endcomment -%}
+  {%- else -%}
+    {%- assign shipping_threshold = '$49 USD' -%}
+{%- endcase -%}
