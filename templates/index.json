@@ -238,7 +238,7 @@
           "type": "link",
           "settings": {
             "title": "Wideback Fabric",
-            "link": "shopify://collections/wideback-fabric-per-yard-1",
+            "link": "shopify://collections/wideback-fabric-per-yard",
             "link_image": "shopify://shop_images/widebacks_with_no_shop_now_1.webp",
             "use_badge": true,
             "badge_position": "top-right",
@@ -424,7 +424,7 @@
           "type": "link",
           "settings": {
             "title": "All Widebacks",
-            "link": "shopify://collections/wideback-fabric-per-yard-1",
+            "link": "shopify://collections/wideback-fabric-per-yard",
             "use_badge": true,
             "badge_position": "top-left",
             "badge_size": 65,
