@@ -856,7 +856,7 @@
     "collection_with_image_PVEJKK": {
       "type": "collection-with-image",
       "settings": {
-        "collection": "all-batting",
+        "collection": "all-batting-2",
         "products_count": 12,
         "show_quick_buy": true,
         "background": "#485cc7",
